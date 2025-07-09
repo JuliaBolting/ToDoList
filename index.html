@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Tarefas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-info">
+                <h1>Gerenciador de Tarefas</h1>
+                <span id="current-date" class="current-date"></span>
+                <button class="new-task-btn"><i class="fas fa-plus"></i> Nova Tarefa</button>
+            </div>
+        </header>
+
+        <section class="stats-cards">
+            <div class="card total-tasks">
+                <div class="card-icon"><i class="fas fa-clipboard-list"></i></div>
+                <div class="card-content">
+                    <h3>Total de Tarefas</h3>
+                    <p id="total-tasks-count">0</p>
+                </div>
+            </div>
+            <div class="card completed-tasks">
+                <div class="card-icon"><i class="fas fa-check-circle"></i></div>
+                <div class="card-content">
+                    <h3>Tarefas Concluídas</h3>
+                    <p id="completed-tasks-count">0</p>
+                </div>
+            </div>
+            <div class="card pending-tasks">
+                <div class="card-icon"><i class="fas fa-clock"></i></div>
+                <div class="card-content">
+                    <h3>Tarefas Pendentes</h3>
+                    <p id="pending-tasks-count">0</p>
+                </div>
+            </div>
+        </section>
+
+        <main class="main-content">
+            <section class="my-tasks">
+                <div class="task-controls">
+                    <h2>Minhas Tarefas</h2>
+                    <input type="text" id="task-search" placeholder="🔍 Buscar tarefas...">
+                    <div class="filters">
+                        <select id="filter-status">
+                            <option value="all">Todas</option>
+                            <option value="completed">Concluídas</option>
+                            <option value="pending">Pendentes</option>
+                        </select>
+                        <select id="filter-priority">
+                            <option value="all">Todas Prioridades</option>
+                            <option value="alta">Prioridade Alta</option>
+                            <option value="média">Prioridade Média</option>
+                            <option value="baixa">Prioridade Baixa</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="task-list" id="task-list">
+                </div>
+            </section>
+
+            <aside class="sidebar">
+                <section class="categories">
+                    <h2>Categorias</h2>
+                    <ul id="category-list">
+                        <li class="trabalho">Trabalho <span class="category-count" data-category="Trabalho">0</span>
+                        </li>
+                        <li class="pessoal">Pessoal <span class="category-count" data-category="Pessoal">0</span></li>
+                        <li class="estudos">Estudos <span class="category-count" data-category="Estudos">0</span></li>
+                        <li class="compras">Compras <span class="category-count" data-category="Compras">0</span></li>
+                    </ul>
+                </section>
+
+                <section class="upcoming-deadlines">
+                    <h2>Próximos Prazos</h2>
+                    <ul id="upcoming-deadlines-list">
+                    </ul>
+                </section>
+            </aside>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="newTaskModal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Nova Tarefa</h2>
+            <form id="newTaskForm">
+                <div class="form-group">
+                    <label for="taskTitle">Título</label>
+                    <input type="text" id="taskTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="taskDescription">Descrição</label>
+                    <textarea id="taskDescription" rows="3"></textarea>
+                </div>
+                <div class="form-group half-width">
+                    <label for="taskCategory">Categoria</label>
+                    <select id="taskCategory" required>
+                        <option value="Trabalho">Trabalho</option>
+                        <option value="Pessoal">Pessoal</option>
+                        <option value="Estudos">Estudos</option>
+                        <option value="Compras">Compras</option>
+                        <option value="Outros">Outros</option>
+                    </select>
+                </div>
+                <div class="form-group half-width">
+                    <label for="taskPriority">Prioridade</label>
+                    <select id="taskPriority" required>
+                        <option value="Baixa">Baixa</option>
+                        <option value="Média">Média</option>
+                        <option value="Alta">Alta</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="taskDueDate">Data de Vencimento</label>
+                    <input type="date" id="taskDueDate" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn">Cancelar</button>
+                    <button type="submit" class="save-btn">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
