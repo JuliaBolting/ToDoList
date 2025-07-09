@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Variáveis Globais e Seletores DOM
     const currentDateElement = document.getElementById('current-date');
     const newTaskBtn = document.querySelector('.new-task-btn');
     const newTaskModal = document.getElementById('newTaskModal');
@@ -21,18 +20,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const categoryList = document.getElementById('category-list');
     const upcomingDeadlinesList = document.getElementById('upcoming-deadlines-list');
 
-    let tasks = []; // Array que armazenará todas as tarefas
+    let tasks = [];
 
-    // Variável para armazenar o ID da tarefa sendo editada (se houver)
     let editingTaskId = null;
 
-    // 2. Funções Auxiliares
     function getFormattedDate() {
         const date = new Date();
         const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
-        // Formata a data para "terça-feira, 27 de maio de 2025"
         const formattedDate = date.toLocaleDateString('pt-BR', options);
-        // Capitaliza a primeira letra do dia da semana e do mês
         return formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
     }
 
@@ -86,9 +81,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 3. Renderização de Tarefas
     function renderTasks() {
-        taskList.innerHTML = ''; // Limpa a lista antes de renderizar
+        taskList.innerHTML = '';
         const searchTerm = taskSearchInput.value.toLowerCase();
         const filterStatus = filterStatusSelect.value;
         const filterPriority = filterPrioritySelect.value;
@@ -118,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (task.completed) {
                 taskItem.classList.add('completed');
             }
-            taskItem.dataset.id = task.id; // Armazena o ID no dataset do elemento
+            taskItem.dataset.id = task.id;
 
             const formattedDueDate = task.dueDate ? new Date(task.dueDate + 'T00:00:00').toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' }) : 'Sem Data';
             const displayDueDate = task.dueDate ? new Date(task.dueDate + 'T00:00:00') : null;
@@ -146,8 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-
-
             taskItem.innerHTML = `
                 <div class="checkbox-actions">
                     <input type="checkbox" ${task.completed ? 'checked' : ''}>
@@ -169,18 +161,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
             taskList.appendChild(taskItem);
         });
-        updateStats(); // Atualiza as estatísticas após renderizar
+        updateStats();
     }
 
-    // 4. Manipuladores de Eventos
     newTaskBtn.addEventListener('click', () => {
         newTaskModal.classList.add('active');
-        // Reseta o formulário e o ID de edição
         newTaskForm.reset();
         editingTaskId = null;
-        newTaskModal.querySelector('h2').textContent = 'Nova Tarefa'; // Garante que o título é "Nova Tarefa"
-        newTaskModal.querySelector('.save-btn').textContent = 'Salvar'; // Garante que o botão é "Salvar"
-        taskTitleInput.focus(); // Foca no primeiro campo
+        newTaskModal.querySelector('h2').textContent = 'Nova Tarefa';
+        newTaskModal.querySelector('.save-btn').textContent = 'Salvar';
+        taskTitleInput.focus();
     });
 
     closeButton.addEventListener('click', () => {
@@ -191,7 +181,6 @@ document.addEventListener('DOMContentLoaded', () => {
         newTaskModal.classList.remove('active');
     });
 
-    // Fechar modal clicando fora
     newTaskModal.addEventListener('click', (e) => {
         if (e.target === newTaskModal) {
             newTaskModal.classList.remove('active');
@@ -199,25 +188,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     newTaskForm.addEventListener('submit', (e) => {
-        e.preventDefault(); // Evita o recarregamento da página
+        e.preventDefault();
 
         const title = taskTitleInput.value.trim();
         const description = taskDescriptionInput.value.trim();
         const category = taskCategoryInput.value;
         const priority = taskPriorityInput.value;
-        const dueDate = taskDueDateInput.value; // Formato YYYY-MM-DD
-
-        if (!title || !dueDate) {
-            alert('Título e Data de Vencimento são obrigatórios!');
+        const dueDate = taskDueDateInput.value;
+        if (!title) {
+            alert('Título é obrigatório!');
             return;
         }
 
         if (editingTaskId) {
-            // Edita tarefa existente
             const taskIndex = tasks.findIndex(task => task.id === editingTaskId);
             if (taskIndex !== -1) {
                 tasks[taskIndex] = {
-                    ...tasks[taskIndex], // Mantém o status 'completed' e ID
+                    ...tasks[taskIndex],
                     title,
                     description,
                     category,
@@ -225,11 +212,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     dueDate
                 };
             }
-            editingTaskId = null; // Reseta o ID de edição
+            editingTaskId = null;
         } else {
-            // Adiciona nova tarefa
             const newTask = {
-                id: Date.now(), // ID único baseado no timestamp
+                id: Date.now(),
                 title,
                 description,
                 category,
@@ -237,45 +223,59 @@ document.addEventListener('DOMContentLoaded', () => {
                 dueDate,
                 completed: false
             };
-            tasks.unshift(newTask); // Adiciona no início da lista
+            tasks.unshift(newTask);
         }
 
         saveTasks();
         renderTasks();
-        newTaskModal.classList.remove('active'); // Fecha o modal
-        newTaskForm.reset(); // Reseta o formulário
+        newTaskModal.classList.remove('active');
+        newTaskForm.reset();
+    });
+
+    document.querySelectorAll('.stats-cards .card').forEach(card => {
+        card.addEventListener('click', () => {
+            document.querySelectorAll('.stats-cards .card').forEach(c => c.classList.remove('active'));
+            card.classList.add('active');
+
+            if (card.classList.contains('total-tasks')) {
+                filterStatusSelect.value = 'all';
+            } else if (card.classList.contains('completed-tasks')) {
+                filterStatusSelect.value = 'completed';
+            } else if (card.classList.contains('pending-tasks')) {
+                filterStatusSelect.value = 'pending';
+            }
+
+            renderTasks();
+        });
     });
 
     taskList.addEventListener('click', (e) => {
         const taskItem = e.target.closest('.task-item');
-        if (!taskItem) return; // Se não clicou em um item de tarefa, ignora
-
+        if (!taskItem) return;
         const taskId = parseInt(taskItem.dataset.id);
         const task = tasks.find(t => t.id === taskId);
+        taskDueDateInput.value = task.dueDate;
 
         if (e.target.type === 'checkbox') {
-            // Marcar/Desmarcar tarefa
             if (task) {
                 task.completed = e.target.checked;
                 saveTasks();
-                renderTasks(); // Re-renderiza para aplicar estilos de concluído/pendente
+                renderTasks();
             }
         } else if (e.target.closest('.edit-btn')) {
-            // Editar tarefa
             if (task) {
-                editingTaskId = task.id; // Armazena o ID da tarefa que será editada
+                editingTaskId = task.id;
                 taskTitleInput.value = task.title;
                 taskDescriptionInput.value = task.description;
                 taskCategoryInput.value = task.category;
                 taskPriorityInput.value = task.priority;
-                taskDueDateInput.value = task.dueDate; // Formato YYYY-MM-DD
+                taskDueDateInput.value = task.dueDate;
 
                 newTaskModal.classList.add('active');
-                newTaskModal.querySelector('h2').textContent = 'Editar Tarefa'; // Muda o título do modal
-                newTaskModal.querySelector('.save-btn').textContent = 'Salvar Edição'; // Muda o texto do botão
+                newTaskModal.querySelector('h2').textContent = 'Editar Tarefa';
+                newTaskModal.querySelector('.save-btn').textContent = 'Salvar Edição';
             }
         } else if (e.target.closest('.delete-btn')) {
-            // Excluir tarefa
             if (confirm('Tem certeza que deseja excluir esta tarefa?')) {
                 tasks = tasks.filter(t => t.id !== taskId);
                 saveTasks();
@@ -288,7 +288,6 @@ document.addEventListener('DOMContentLoaded', () => {
     filterStatusSelect.addEventListener('change', renderTasks);
     filterPrioritySelect.addEventListener('change', renderTasks);
 
-    // 5. Funções de Atualização de Categorias e Prazos
     function updateCategoryCounts() {
         const categoryCounts = {};
         tasks.forEach(task => {
@@ -299,7 +298,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Atualiza os contadores no HTML
         document.querySelectorAll('.category-count').forEach(span => {
             const categoryName = span.dataset.category;
             span.textContent = categoryCounts[categoryName] || 0;
@@ -309,21 +307,19 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateUpcomingDeadlines() {
         upcomingDeadlinesList.innerHTML = '';
         const today = new Date();
-        today.setHours(0, 0, 0, 0); // Para comparar apenas a data
+        today.setHours(0, 0, 0, 0);
 
-        // Filtra tarefas não concluídas e ordena por data de vencimento
         const upcoming = tasks
             .filter(task => !task.completed && task.dueDate)
             .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate));
 
-        let tasksToShow = 0; // Contador para limitar a 3 tarefas
+        let tasksToShow = 0;
 
         upcoming.forEach(task => {
-            if (tasksToShow >= 3) return; // Limita a exibir no máximo 3
+            if (tasksToShow >= 3) return;
 
-            const taskDate = new Date(task.dueDate + 'T00:00:00'); // Garante que a comparação de data seja precisa
+            const taskDate = new Date(task.dueDate + 'T00:00:00');
 
-            // Se a tarefa já passou, não mostra nos próximos prazos
             if (taskDate < today) return;
 
             const listItem = document.createElement('li');
@@ -348,8 +344,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
-    // 6. Inicialização
     currentDateElement.textContent = getFormattedDate();
     loadTasks();
-    renderTasks(); // Renderiza as tarefas ao carregar a página
+    renderTasks();
 });

@@ -1,15 +1,10 @@
-/* Importar fonte do Google Fonts - Montserrat */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
 :root {
-    /* Cores */
     --primary-blue: #4c34e9;
-    /* Roxo */
     --primary-blue-hover: #536bf4;
     --secondary-blue: #eaf9ff;
-    /* Roxo mais claro */
     --light-bg: #F4F7FC;
-    /* Fundo muito claro */
     --white: #FFFFFF;
     --text-dark: #333333;
     --text-light: #666666;
@@ -17,28 +12,17 @@
     --shadow-light: rgba(0, 0, 0, 0.08);
     --transparent: rgba(255, 255, 255, 0);
 
-    /* Cores das categorias */
     --category-trabalho: #4169e1;
-    /* Roxo */
     --category-pessoal: #ba55d3;
-    /* Laranja */
     --category-estudos: #52b1ae;
-    /* Verde-água */
     --category-compras: #d8b156;
-    /* Dourado */
     --category-outros: #808080;
-    /* Cinza */
 
-    /* Cores de prioridade */
     --priority-alta: #ff7b64;
-    /* Vermelho tomate */
     --priority-media: #ffef95;
-    /* Dourado */
     --priority-baixa: #5acd5a;
-    /* Roxo */
 }
 
-/* Reset básico e tipografia */
 * {
     margin: 0;
     padding: 0;
@@ -54,9 +38,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    /* Alinha ao topo para que o conteúdo não fique centralizado verticalmente */
     padding: 20px;
-    /* Adiciona um padding geral ao body */
 }
 
 .container {
@@ -67,13 +49,10 @@ body {
         "stats stats"
         "main sidebar";
     grid-template-columns: 2.5fr 1fr;
-    /* Colunas para main e sidebar */
     gap: 25px;
-    /* Espaçamento entre as seções */
     padding: 30px;
 }
 
-/* Header */
 .header {
     grid-area: header;
     display: flex;
@@ -131,7 +110,6 @@ section.stats-cards {
     font-size: 0.9em;
 }
 
-/* Stats Cards */
 .stats-cards {
     grid-area: stats;
     display: flex;
@@ -157,14 +135,12 @@ button.save-btn {
     transition: box-shadow 0.3s ease, transform 0.5s ease;
 }
 
-/* Efeito ao passar o mouse */
 button:hover .save-btn {
     box-shadow: 0 0 12px rgba(76, 52, 233, 0.4);
     transform: scale(1.05);
     transition: background-color 0.8s ease, color 0.8s ease;
 }
 
-/* Animação pulsante */
 @keyframes pulse {
     0% {
         transform: scale(1);
@@ -192,7 +168,6 @@ button:hover .save-btn {
     gap: 15px;
     flex: 1;
     min-width: 280px;
-    /* Garante que os cards não fiquem muito pequenos */
     box-shadow: 0 15px 10px rgba(0, 0, 0, 0.05);
 }
 
@@ -213,12 +188,10 @@ button:hover .save-btn {
 
 .completed-tasks .card-icon {
     background-color: #28a745;
-    /* Verde */
 }
 
 .pending-tasks .card-icon {
     background-color: #ffc107;
-    /* Amarelo */
 }
 
 .card-content h3 {
@@ -233,7 +206,6 @@ button:hover .save-btn {
     color: var(--text-dark);
 }
 
-/* Main Content and Sidebar */
 .main-content {
     grid-area: main;
     display: block;
@@ -246,7 +218,6 @@ button:hover .save-btn {
     gap: 30px;
 }
 
-/* Common Section Styling */
 section {
     background-color: var(--white);
     border-radius: 15px;
@@ -274,29 +245,24 @@ section h2 {
     margin-bottom: 20px;
 }
 
-/* My Tasks Section */
 .my-tasks .task-controls {
     display: flex;
     gap: 15px;
     flex-direction: column;
     margin-bottom: 25px;
     flex-wrap: wrap;
-    /* Permite que os itens quebrem a linha */
 }
 
 .main-content {
     display: flex;
     gap: 2rem;
-    /* espaço entre as colunas */
     align-items: flex-start;
 }
 
-/* Faz a seção de tarefas crescer para ocupar mais espaço */
 .my-tasks {
     flex: 1;
 }
 
-/* Fixa largura da barra lateral */
 .sidebar {
     width: 300px;
 }
@@ -304,7 +270,6 @@ section h2 {
 
 .my-tasks #task-search {
     flex-grow: 1;
-    /* Permite que a barra de busca ocupe o espaço restante */
     padding: 12px 15px;
     border: 1px solid var(--border-light);
     border-radius: 8px;
@@ -327,13 +292,9 @@ section h2 {
     cursor: pointer;
     min-width: 150px;
     -webkit-appearance: none;
-    /* Remove seta padrão do select em Webkit */
     -moz-appearance: none;
-    /* Remove seta padrão do select em Firefox */
     appearance: none;
-    /* Remove seta padrão do select */
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23666' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-    /* Seta customizada */
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 16px;
@@ -341,9 +302,7 @@ section h2 {
 
 button.delete-btn i.fas {
     background-color: rgba(255, 99, 132, 0.12);
-    /* Fundo rosa claro */
     color: #e63946;
-    /* Vermelho suave e moderno */
     padding: 10px;
     border-radius: 10px;
 }
@@ -384,9 +343,7 @@ button.delete-btn i.fas:hover {
 
 .task-item.completed {
     background-color: #e6ffe6;
-    /* Verde claro para tarefas concluídas */
     border-left: 5px solid #28a745;
-    /* Borda esquerda verde */
     opacity: 0.7;
 }
 
@@ -394,7 +351,6 @@ button.delete-btn i.fas:hover {
     width: 22px;
     height: 22px;
     min-width: 22px;
-    /* Garante tamanho fixo */
     min-height: 22px;
     margin-right: 15px;
     cursor: pointer;
@@ -420,7 +376,6 @@ button.delete-btn i.fas:hover {
 
 .due-warning {
     background-color: rgba(255, 193, 7, 0.2);
-    /* Amarelo claro */
     color: #ff9800;
     padding: 4px 10px;
     border-radius: 20px;
@@ -431,7 +386,6 @@ button.delete-btn i.fas:hover {
 
 .due-normal {
     background-color: rgba(76, 175, 80, 0.15);
-    /* Verde claro */
     color: #4caf50;
     padding: 4px 10px;
     border-radius: 20px;
@@ -440,7 +394,6 @@ button.delete-btn i.fas:hover {
     margin-left: 5px;
 }
 
-/* Ícone do calendário colorido */
 .calendar-late {
     color: #ff3b3b;
 }
@@ -461,7 +414,6 @@ button.delete-btn i.fas:hover {
 
 .task-item input[type="checkbox"]:checked::after {
     content: '\2713';
-    /* Checkmark unicode */
     position: absolute;
     top: 50%;
     left: 50%;
@@ -478,6 +430,18 @@ button.delete-btn i.fas:hover {
 
 .task-details .checkbox-actions {
     flex-grow: 1;
+}
+
+.stats-cards .card {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.stats-cards .card.active {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: var(--primary-color);
+    color: var(--white);
 }
 
 .task-details .checkbox-actions h3 {
@@ -501,7 +465,6 @@ button.delete-btn i.fas:hover {
     font-size: 0.85em;
     color: var(--text-light);
     flex-wrap: wrap;
-    /* Permite que os elementos quebrem a linha */
 }
 
 .task-meta span {
@@ -512,7 +475,6 @@ button.delete-btn i.fas:hover {
 
 .task-meta .category-tag {
     background-color: var(--primary-blue);
-    /* Cor padrão */
     color: var(--white);
     padding: 5px 10px;
     border-radius: 5px;
@@ -521,34 +483,28 @@ button.delete-btn i.fas:hover {
     text-transform: capitalize;
 }
 
-/* Cores suaves de fundo para cada categoria */
 .category-tag.Trabalho {
     background-color: rgba(100, 149, 237, 0.1);
-    /* Azul claro */
     color: #4169e1;
 }
 
 .category-tag.Pessoal {
     background-color: rgba(221, 160, 221, 0.15);
-    /* Roxo claro */
     color: #ba55d3;
 }
 
 .category-tag.Estudos {
     background-color: rgba(144, 238, 144, 0.2);
-    /* Verde claro */
     color: #228b22;
 }
 
 .category-tag.Compras {
     background-color: rgba(255, 255, 0, 0.15);
-    /* Amarelo claro */
     color: #d2691e;
 }
 
 .category-tag.Outros {
     background-color: rgba(68, 68, 63, 0.15);
-    /* Amarelo claro */
     color: #3f3f3f;
 }
 
@@ -560,7 +516,6 @@ button.delete-btn i.fas:hover {
     text-transform: capitalize;
 }
 
-/* Cores específicas para tags de prioridade */
 .priority-tag.Alta {
     background-color: var(--priority-alta);
     color: var(--white);
@@ -569,7 +524,6 @@ button.delete-btn i.fas:hover {
 .priority-tag.Média {
     background-color: var(--priority-media);
     color: var(--text-dark);
-    /* Texto escuro para melhor contraste */
 }
 
 .priority-tag.Baixa {
@@ -599,7 +553,6 @@ button.delete-btn i.fas:hover {
     cursor: pointer;
 }
 
-/* Efeito ao passar o mouse */
 .task-actions button.edit-btn:hover {
     background-color: var(--primary-blue-hover);
     color: rgb(255, 255, 255);
@@ -609,11 +562,9 @@ button.delete-btn i.fas:hover {
 
 .task-actions button.delete-btn:hover {
     color: #dc3545;
-    /* Vermelho para o botão de deletar */
 }
 
 
-/* Categories Section */
 .categories ul {
     list-style: none;
     display: flex;
@@ -631,31 +582,25 @@ button.delete-btn i.fas:hover {
     font-size: 0.95em;
     color: var(--text-dark);
     background-color: #f0f0f0;
-    /* default fallback */
 }
 
-/* Cores suaves de fundo para cada categoria */
 .categories li.trabalho {
     background-color: rgba(100, 149, 237, 0.1);
-    /* Azul claro */
     color: #4169e1;
 }
 
 .categories li.pessoal {
     background-color: rgba(221, 160, 221, 0.15);
-    /* Roxo claro */
     color: #ba55d3;
 }
 
 .categories li.estudos {
     background-color: rgba(144, 238, 144, 0.2);
-    /* Verde claro */
     color: #228b22;
 }
 
 .categories li.compras {
     background-color: rgba(255, 255, 0, 0.15);
-    /* Amarelo claro */
     color: #d2691e;
 }
 
@@ -674,7 +619,6 @@ button.delete-btn i.fas:hover {
     border-bottom: none;
 }
 
-/* Upcoming Deadlines Section */
 .upcoming-deadlines ul {
     list-style: none;
     display: flex;
@@ -703,7 +647,6 @@ button.delete-btn i.fas:hover {
     color: var(--text-light);
 }
 
-/* Modal Styling */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -790,11 +733,8 @@ button.delete-btn i.fas:hover {
 .form-group.half-width {
     display: inline-block;
     width: calc(50% - 10px);
-    /* 50% menos um espaço */
     margin-right: 20px;
-    /* Espaçamento entre eles */
     vertical-align: top;
-    /* Alinha no topo */
 }
 
 .form-group.half-width:last-of-type {
@@ -839,7 +779,6 @@ button.delete-btn i.fas:hover {
     transition: background-color 0.8s ease, color 0.8s ease;
 }
 
-/* Responsividade */
 @media (max-width: 992px) {
     .container {
         grid-template-areas:
@@ -874,7 +813,6 @@ button.delete-btn i.fas:hover {
 
     .card {
         flex: 1 1 100%;
-        /* Permite que os cards ocupem toda a largura */
         min-width: unset;
     }
 
