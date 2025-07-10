@@ -290,7 +290,7 @@ section h2 {
     color: var(--text-dark);
     font-size: 0.95em;
     cursor: pointer;
-    min-width: 150px;
+    min-width: 170px;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
